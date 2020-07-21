@@ -1,0 +1,57 @@
+.footer {
+  @include wrapper;
+  grid-template-rows: 50px;
+
+  &__media {
+    @include center;
+    background-color: $white;
+
+    @include respond-to("small") {
+      padding-bottom: 1rem;
+    }
+
+    &__link {
+      color: $black;
+      margin: 0 .4rem;
+
+      &:first-child {
+        font-size: 90%;
+      }
+    }
+  }
+
+  &__copyright {
+    grid-row: 1;
+    grid-column: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $white;
+
+    & > span > a {
+      color: $black;
+    }
+
+    @include respond-to("large") {
+        font-size: 1rem;
+        padding-bottom: 8rem;
+        flex-direction: column;
+
+        & * {
+          padding: .5rem 0;
+
+          &:nth-child(2) {
+            order: -1;
+          }
+        }
+    }
+
+    @include respond-to("medium") {
+      padding-bottom: 1rem;
+    }
+
+    @include respond-to("small") {
+      font-size: .8rem;
+    }
+  }
+}

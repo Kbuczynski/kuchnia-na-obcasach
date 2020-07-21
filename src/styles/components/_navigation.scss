@@ -1,0 +1,254 @@
+.navigation {
+  @include wrapper;
+  width: 100vw;
+  grid-template-rows: 100px 1fr 90px;
+
+  @include respond-to("large") {
+    grid-template-rows: 100px 1fr 60px;
+  }
+
+  &__top {
+    grid-row: 1;
+    grid-column: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $white;
+    position: relative;
+    z-index: 100;
+    transition: transform 0.2s ease;
+
+    &__open {
+      position: absolute;
+      display: none;
+      bottom: -1px;
+      width: 100%;
+      height: 25px;
+      border: none;
+      background-color: $gray;
+
+      @include respond-to("small") {
+        display: inline;
+      }
+    }
+
+    @include respond-to("medium") {
+      height: 100px;
+    }
+
+    @include respond-to("small") {
+      position: absolute;
+      width: calc(100% - 2rem);
+      flex-direction: column;
+      height: 100px;
+      padding: 1rem;
+      transform: translateY(-106px);
+    }
+
+    &__media {
+      @include respond-to("small") {
+        padding-bottom: 1rem;
+      }
+
+      &__link {
+        color: $black;
+        padding: 0 0.2rem;
+
+        &:first-child {
+          font-size: 90%;
+        }
+      }
+    }
+
+    &__search {
+      padding-bottom: 1rem;
+    }
+  }
+
+  &__center {
+    grid-row: 2;
+    grid-column: 2;
+    @include center;
+    background-color: $white;
+    margin-top: -1rem;
+    padding-bottom: 1rem;
+
+    @include respond-to("medium") {
+      margin-top: -1rem;
+    }
+
+    @include respond-to("small") {
+      margin-top: 2rem;
+    }
+  }
+
+  &__bottom {
+    grid-row: 3;
+    grid-column: 2;
+    background-color: $white;
+
+    @include respond-to("small") {
+      @include center;
+      position: relative;
+      height: 50px;
+    }
+
+    &__hamburger {
+      display: none;
+      height: 1.5rem;
+      width: 2rem;
+      position: relative;
+      border: none;
+      border-bottom: 0.2rem solid $black;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+
+      @include respond-to("small") {
+        display: inline;
+      }
+
+      &::before {
+        @include hamburger-pseudoelements;
+        top: 50%;
+      }
+
+      &::after {
+        @include hamburger-pseudoelements;
+      }
+    }
+
+    &__menu {
+      @include center;
+      list-style-type: none;
+      width: calc(100% - 1rem);
+      border-top: 1px solid $black;
+      border-bottom: 1px solid $black;
+
+      @include respond-to("small") {
+        transform: scale(0);
+        flex-direction: column;
+        align-items: flex-start;
+        background-color: $white;
+        width: 100%;
+        position: absolute;
+        top: 50px;
+        transition: transform 0.2s ease;
+        z-index: 100;
+      }
+
+      &__item {
+        padding: 2.2rem 2rem;
+        cursor: pointer;
+
+        &:nth-child(2) {
+          position: relative;
+
+          @include respond-to("small") {
+            width: calc(100% - 4.5rem) !important;
+          }
+
+          &::after {
+            font-family: "fontello";
+            content: "\e805";
+            position: absolute;
+            top: 52%;
+            right: 1rem;
+            transform: translateY(-50%);
+
+            @include respond-to("large") {
+              right: 0;
+            }
+
+            @include respond-to("small") {
+              left: 7rem;
+              top: 2rem;
+            }
+          }
+        }
+
+        &:hover {
+          background-color: $gray;
+        }
+
+        @include respond-to("large") {
+          padding: 1.2rem 1rem;
+        }
+
+        @include respond-to("small") {
+          width: calc(100% - 2rem);
+        }
+
+        @include respond-to("only-desktop") {
+          &:hover > &__categories{
+            transform: scale(1) !important;
+          }
+        }
+
+        &__link {
+          text-decoration: none;
+          color: $black;
+          text-transform: uppercase;
+          letter-spacing: 1.5px;
+
+          @include respond-to("large") {
+            letter-spacing: 1px;
+            font-size: 0.7rem;
+          }
+        }
+
+        &__categories {
+
+          @include respond-to("only-desktop") {
+            position: absolute;
+            top: 5.6rem;
+            left: 0;
+            background-color: $white;
+            transform: scale(0);
+            transition: .3s ease;
+
+            @include respond-to("large") {
+              top: 3.6rem;
+            }
+          }
+          
+          padding: 1rem;
+          list-style-type: none;
+          z-index: 100;
+          width: 100%;
+
+          @include respond-to("small") {
+            display: none;
+          }
+
+          &__item {
+            padding: 1rem;
+            border-bottom: 1px solid $black;
+
+            @include respond-to("small") {
+              &:first-child {
+                margin-top: 1rem;
+              }
+              background-color: $white;
+            }
+
+            &:hover {
+              background-color: $gray;
+            }
+
+            &__link {
+              text-decoration: none;
+              color: $black;
+              text-transform: uppercase;
+              font-size: 0.7rem;
+              letter-spacing: 1px;
+
+              @include respond-to("small") {
+                font-size: .8rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

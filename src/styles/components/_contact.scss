@@ -1,0 +1,75 @@
+.contact {
+  @include wrapper;
+
+  &__container {
+    grid-column: 2;
+    background-color: $white;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+    display: flex;
+
+    flex-direction: column;
+
+    &__left {
+      width: 100%;
+      margin-bottom: 2rem;
+
+      &__title {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+
+        @include respond-to("medium") {
+          font-size: 2rem;
+        }
+      }
+
+      &__paragraph {
+        padding: 0 2rem 1rem 0;
+        letter-spacing: 1px;
+        line-height: 30px;
+
+        & a {
+          color: $black;
+        }
+
+        &:last-child {
+            margin-top: 2rem;
+        }
+      }
+
+      &__list {
+        list-style-type: none;
+        letter-spacing: 1px;
+        line-height: 30px;
+        font-weight: bold;
+      }
+    }
+
+    &__right {
+      &__title {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+
+        @include respond-to("medium") {
+          font-size: 2rem;
+        }
+      }
+
+      &__companies {
+        margin-top: 5rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        grid-gap: 2rem;
+
+        &__item {
+          cursor: pointer;
+          transition: transform 0.3s ease;
+
+          &:hover {
+            transform: scale(1.1);
+          }
+        }
+      }
+    }
+  }
+}

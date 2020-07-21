@@ -1,0 +1,8 @@
+@import "./base/normalize", "./base/font", "./base/base";
+
+@import "./utils/variables", "./utils/mixins", "./utils/dynamicClass";
+
+@import "./components/navigation", "./components/search", "./components/footer",
+  "./components/home", "./components/pageNotFound", "./components/postPrev",
+  "./components/preloader", "./components/scrollToTop",
+  "./components/postContent", "./components/categoryPosts", "./components/about", "./components/slider", "./components/contact";

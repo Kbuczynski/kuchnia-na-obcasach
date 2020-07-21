@@ -1,0 +1,103 @@
+.postPrev {
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+
+  @include respond-to("large") {
+    font-size: .8rem;
+  }
+
+  @include respond-to("medium") {
+    margin-top: 1rem;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.308);
+    transform: translateY(-100%);
+    transition: transform .5s ease;
+    z-index: 1;
+  }
+
+  &::after {
+    font-family: "fontello";
+    content: "\f178";
+    color: $intens-red;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 75px;
+    height: 75px;
+    @include center;
+    font-size: 3rem;
+    border: .3rem solid $intens-red;
+    border-radius: 50%;
+    filter: opacity(.8);
+    transform: translate(-50%, -100vh) rotate(90deg);
+    transition: transform .5s .1s ease;
+
+    z-index: 2;
+  }
+
+  &:hover::before {
+    transform: translateY(0);
+  }
+
+  &:hover::after {
+    transform: translate(-50%, -50%)  rotate(90deg);
+  }
+
+  &:hover &__content > img {
+    transform: scale(1.1);
+  }
+
+  &__title {
+    width: 100%;
+    text-decoration: none;
+    color: $black;
+    font-weight: 400; 
+    padding: 1rem;
+    @include center;
+    width: calc(100% - 2rem);
+
+    @include respond-to("small") {
+      padding: 1rem;
+      width: calc(100% - 2rem);
+    }
+  }
+
+  &__date {
+    color: $black;
+    padding: 1rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    background-color: $gray-opacity;
+    width: calc(100% - 2rem);
+    font-style: italic;
+
+    i {
+      margin-left: .2rem;
+    }
+
+    @include respond-to("small") {
+      padding: 1rem;
+      width: calc(100% - 2rem);
+    }
+  }
+
+  &__content {
+    @include center;
+    overflow: hidden;
+
+    & > img {
+      transition: transform .3s ease;
+    }
+  }
+}

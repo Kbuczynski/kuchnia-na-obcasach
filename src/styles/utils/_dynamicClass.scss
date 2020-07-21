@@ -1,0 +1,27 @@
+.reset-translate {
+  transform: translate(0) scale(1) !important;
+}
+
+.rotate-180 {
+  transform: rotate(180deg);
+}
+
+.hamburger-transform {
+  transform: rotate(45deg) translateY(-0.8rem) !important;
+
+  &::after {
+    transform: rotate(90deg) translate(0.7rem, 0.7rem) !important;
+  }
+
+  &::before {
+    transform: scale(0) !important;
+  }
+}
+
+.show-categories {
+  display: inline !important;
+}
+
+.active {
+  border-bottom: 1px solid $black;
+}

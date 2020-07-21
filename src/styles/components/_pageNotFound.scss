@@ -1,0 +1,18 @@
+.pageNotFound {
+    @include wrapper;
+
+    &__container {
+        grid-column: 2;
+        background-color: $white;
+        @include center;
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+
+        & img {
+
+            @include respond-to("large") {
+                width: 100%;
+            }
+        }
+    }
+}
