@@ -24,20 +24,11 @@
     & figure {
       & img {
         @include respond-to("large") {
-          width: 80%;
+          width: 100%;
         }
         @include respond-to("medium") {
-          width: 80%;
+          width: 100%;
         }
-      }
-    }
-
-    & img {
-      @include respond-to("large") {
-        width: 80%;
-      }
-      @include respond-to("medium") {
-        width: 80%;
       }
     }
 
