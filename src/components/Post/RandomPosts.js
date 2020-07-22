@@ -15,8 +15,8 @@ const RandomPosts = ({ postId }) => {
       let randomOffset = 0;
 
       if (sessionStorage.getItem("countPosts")) {
-        randomOffset = Math.floor(Math.random() * JSON.parse(sessionStorage.getItem("countPosts")), 10) + 1;
-      } else randomOffset = Math.floor(Math.random() * 200, 10) + 1;
+        randomOffset = Math.floor(Math.random() * (JSON.parse(sessionStorage.getItem("countPosts")) - 2));
+      } else randomOffset = 0;
 
       const ENDPOINT = `${API}posts?per_page=${3}&offset=${randomOffset}`;
 
