@@ -64,6 +64,7 @@
     padding: 1rem;
     @include center;
     width: calc(100% - 2rem);
+    text-align: center;
 
     @include respond-to("small") {
       padding: 1rem;
@@ -81,12 +82,14 @@
     background-color: $gray-opacity;
     width: calc(100% - 2rem);
     font-style: italic;
+    margin-top: 1rem;
 
     i {
       margin-left: .2rem;
     }
 
     @include respond-to("small") {
+      margin-top: 0;
       padding: 1rem;
       width: calc(100% - 2rem);
     }
@@ -95,9 +98,19 @@
   &__content {
     @include center;
     overflow: hidden;
+    max-height: 650px;
 
-    & > img {
+    @include respond-to("small") {
+      max-height: 400px;
+    }    
+
+    & > span > img {
+      transform: scale(.6);
       transition: transform .3s ease;
+
+      @include respond-to("small") {
+        transform: scale(.4);
+      }
     }
   }
 }

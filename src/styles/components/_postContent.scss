@@ -1,6 +1,6 @@
 .postContent {
   @include wrapper;
-  grid-template-rows: 1fr 50px 500px 850px;
+  grid-template-rows: 1fr 50px repeat(2, 850px);
 
   &__article {
     grid-column: 2;

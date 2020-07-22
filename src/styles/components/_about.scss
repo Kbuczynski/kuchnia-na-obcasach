@@ -32,6 +32,9 @@
 
         & a {
             color: $black;
+            @include respond-to("small") {
+              font-size: .8rem;
+            }
         }
       }
     }

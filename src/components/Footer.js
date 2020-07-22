@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer className="footer">
       <p className="footer__copyright">
-        <span>© 2020 Kuchnia na obcasach.</span>
+        <span>© 2020 kuchnia na obcasach</span>
         <span className="footer__media">
         <SocialMedia className={"footer__media__link"} />
       </span>

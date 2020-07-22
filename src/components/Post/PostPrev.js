@@ -33,9 +33,9 @@ const PostPrev = ({ post, handleCache }) => {
           image.images[0] !== undefined && 
           <LazyLoadImage
             alt={image.images[0].slug}
-            height={image.images[0].media_details.sizes.medium.height}
-            src={image.images[0].media_details.sizes.medium.source_url}
-            width={image.images[0].media_details.sizes.medium.width}
+            height={image.images[0].media_details.sizes.large.height}
+            src={image.images[0].media_details.sizes.large.source_url}
+            width={image.images[0].media_details.sizes.large.width}
             effect="blur"
           />
         )}

@@ -1,16 +1,19 @@
 import React, { useRef, useState, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useHistory } from "react-router-dom";
 import logo from "../assets/logo.png";
 import Search from "./Search";
 import SocialMedia from "./SocialMedia";
 import { API } from "../data";
 
 const Navigation = () => {
+  const BREAKPOINT = 650;
+
   const navTop = useRef();
   const navTopOpen = useRef();
   const navBottom = useRef();
   const navBottomHamburger = useRef();
   const navBottomCategories = useRef();
+  const history = useHistory();
 
   const [data, setData] = useState({
     categories: [],
@@ -53,14 +56,18 @@ const Navigation = () => {
   };
 
   const handleClick = () => {
-    const BREAKPOINT = 650;
-
     if (window.innerWidth <= BREAKPOINT) {
       navBottomCategories.current.classList.contains("show-categories") &&
         handleCategories();
       handleHamburger();
     }
   };
+
+  const handleLink = (e) => {
+    const link = e.target.children;
+    link.length === 1 && history.push(`${link[0].getAttribute("href")}`);
+    if (window.innerWidth <= BREAKPOINT && link.length === 2) handleCategories();    
+  }
 
   useEffect(() => {
     loadCategories();
@@ -106,12 +113,12 @@ const Navigation = () => {
         ></button>
 
         <ul className="navigation__bottom__menu" ref={navBottom}>
-          <li className="navigation__bottom__menu__item" onClick={handleClick}>
+          <li className="navigation__bottom__menu__item" onClick={(e) => {handleClick(); handleLink(e)}}>
             <NavLink exact to="/" className="navigation__bottom__menu__item__link" activeClassName="active">
               Strona główna
             </NavLink>
           </li>
-          <li className="navigation__bottom__menu__item">
+          <li className="navigation__bottom__menu__item" onClick={(e) => {handleLink(e)}}>
             <Link
               to="#"
               className="navigation__bottom__menu__item__link"
@@ -131,6 +138,7 @@ const Navigation = () => {
                     <li
                       className="navigation__bottom__menu__item__categories__item"
                       key={id}
+                      onClick={(e) => {handleLink(e)}}
                     >
                       <NavLink
                         exact
@@ -145,7 +153,7 @@ const Navigation = () => {
                 })}
             </ul>
           </li>
-          <li className="navigation__bottom__menu__item">
+          <li className="navigation__bottom__menu__item" onClick={(e) => {handleClick(); handleLink(e)}}>
             <NavLink
               exact
               activeClassName="active"
@@ -156,7 +164,7 @@ const Navigation = () => {
               O mnie
             </NavLink>
           </li>
-          <li className="navigation__bottom__menu__item">
+          <li className="navigation__bottom__menu__item" onClick={(e) => {handleClick(); handleLink(e)}}>
             <NavLink
               exact
               activeClassName="active"

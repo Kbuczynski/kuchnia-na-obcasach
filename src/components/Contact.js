@@ -97,8 +97,8 @@ const Contact = () => {
           </p>
         </div>
         <div className="contact__container__right">
-          <h3 className="contact__container__left__title">
-            Podejmowałam współpracę m.in. z
+          <h3 className="contact__container__right__title">
+            Podejmowałam współpracę m.in. z:
           </h3>
           <div className="contact__container__right__companies">
             {logos.map(({ name, img }, index) => (
