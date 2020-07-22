@@ -99,10 +99,12 @@
     @include center;
     overflow: hidden;
     max-height: 650px;
+    margin: 0 .4rem;
 
     @include respond-to("small") {
       max-height: 400px;
     }    
+
 
     & > span > img {
       transform: scale(.6);
