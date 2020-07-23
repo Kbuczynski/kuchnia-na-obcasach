@@ -1,0 +1,36 @@
+.cookies {
+  @include wrapper;
+
+  &__container {
+    grid-column: 2;
+    background-color: $white;
+    padding-top: 2rem;
+
+    & * {
+      margin: 1rem 0;
+    }
+
+    &__title {
+      margin-bottom: 0;
+      font-size: 3rem;
+
+      @include respond-to("medium") {
+        font-size: 2rem;
+      }
+    }
+
+    &__paragraph {
+      letter-spacing: 1px;
+      line-height: 30px;
+      text-align: justify;
+
+      & ul {
+        margin-left: 1.2rem;
+  
+        & li {
+          margin: 1rem 0;
+        }
+      }
+    }
+  }
+}

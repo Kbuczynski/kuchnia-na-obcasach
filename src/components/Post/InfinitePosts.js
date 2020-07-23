@@ -23,9 +23,6 @@ const InfinitePosts = ({ className, type = "home", categoryId = 0 }) => {
     const abortController = new AbortController();
     const signal = abortController.signal;
 
-    if (!sessionStorage.getItem("countPosts") && data.countPosts !== 0)
-      sessionStorage.setItem("countPosts", JSON.stringify(data.countPosts));
-
     const loadPosts = async () => {
       let ENDPOINT = `${API}posts?per_page=${POSTS_PER_PAGE}&offset=${offset}`;
 
@@ -63,7 +60,7 @@ const InfinitePosts = ({ className, type = "home", categoryId = 0 }) => {
       setData({
         posts: [...cachedData.posts],
         isLoading: false,
-        countPosts: parseInt(cachedData.countPosts, 10),
+        countPosts: JSON.parse(sessionStorage.getItem("countPosts"))
       });
       setOffset(cachedData.posts.length);
     }

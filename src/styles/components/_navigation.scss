@@ -197,11 +197,15 @@
         }
 
         &__categories {
-
+          padding: 1rem;
+          list-style-type: none;
+          z-index: 100;
+          width: 100%;
+          
           @include respond-to("only-desktop") {
             position: absolute;
             top: 5.6rem;
-            left: 0;
+            left: -1rem;
             background-color: $white;
             transform: scale(0);
             transition: .3s ease;
@@ -210,11 +214,6 @@
               top: 3.6rem;
             }
           }
-          
-          padding: 1rem;
-          list-style-type: none;
-          z-index: 100;
-          width: 100%;
 
           @include respond-to("small") {
             display: none;

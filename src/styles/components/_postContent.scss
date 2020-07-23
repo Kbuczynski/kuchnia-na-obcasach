@@ -15,6 +15,7 @@
     &__title {
       margin-bottom: 0;
       font-size: 3rem;
+      text-align: center;
 
       @include respond-to("medium") {
         font-size: 2rem;

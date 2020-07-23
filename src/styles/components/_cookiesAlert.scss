@@ -1,0 +1,55 @@
+.cookiesAlert {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  background-color: $white;
+  width: 100%;
+  @include center;
+  font-size: 0.8rem;
+  animation: show-cookies 0.2s ease;
+
+  @include respond-to("large") {
+      flex-direction: column;
+  }
+
+  @keyframes show-cookies {
+    from {
+      transform: scale(0);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+
+  * & {
+    padding: 1rem 0;
+  }
+
+  div {
+    @include respond-to("large") {
+        padding-top: 1rem;
+    }
+  }
+
+  &__text {
+      text-align: center;
+    @include respond-to("only-desktop") {
+      margin-right: 1rem;
+    }
+    @include respond-to("large") {
+        font-size: .6rem;
+    }
+  }
+
+  &__ok {
+      background-color: transparent;
+      border: none;
+      margin-right: 1rem;
+      cursor: pointer;
+  }
+
+  &__more {
+      color: $black;
+  }
+}

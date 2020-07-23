@@ -31,6 +31,15 @@ const PostPrev = ({ post, handleCache }) => {
           <Preloader />
         ) : (
           image.images[0] !== undefined && 
+          image.images[0].media_details.sizes.large === undefined ?
+          <LazyLoadImage
+            alt={image.images[0].slug}
+            height={image.images[0].media_details.sizes.full.height}
+            src={image.images[0].media_details.sizes.full.source_url}
+            width={image.images[0].media_details.sizes.full.width}
+            effect="blur"
+          />
+          :
           <LazyLoadImage
             alt={image.images[0].slug}
             height={image.images[0].media_details.sizes.large.height}

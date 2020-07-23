@@ -18,11 +18,15 @@ const Navigation = () => {
   const [data, setData] = useState({
     categories: [],
     isLoading: true,
-    countCategories: 0,
+    countCategories: 1,
   });
 
+  useEffect(() => {
+    loadCategories();
+  }, [data.countCategories])
+
   const loadCategories = async () => {
-    let ENDPOINT = `${API}categories`;
+    let ENDPOINT = `${API}categories?per_page=${data.countCategories}`;
 
     try {
       const response = await fetch(ENDPOINT);
@@ -68,10 +72,6 @@ const Navigation = () => {
     link.length === 1 && history.push(`${link[0].getAttribute("href")}`);
     if (window.innerWidth <= BREAKPOINT && link.length === 2) handleCategories();    
   }
-
-  useEffect(() => {
-    loadCategories();
-  }, [])
 
   return (
     <nav className="navigation">
