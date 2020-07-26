@@ -14,7 +14,6 @@ const InfinitePosts = ({ className, type = "home", categoryId = 0 }) => {
     countPosts: 0,
   });
   const [offset, setOffset] = useState(0);
-  const [oldCatId, setOldCatId] = useState(categoryId);
   const [newVisit, setNewVisit] = useState(true);
   const [timeoutId, setTimeoutId] = useState(0);
   const [isError, setIsError] = useState(false);
@@ -26,8 +25,8 @@ const InfinitePosts = ({ className, type = "home", categoryId = 0 }) => {
     const loadPosts = async () => {
       let ENDPOINT = `${API}posts?per_page=${POSTS_PER_PAGE}&offset=${offset}`;
 
-      if (type === "category") ENDPOINT += `&categories=${oldCatId}`;
-      else if (type === "tag") ENDPOINT += `&tags=${oldCatId}`;
+      if (type === "category") ENDPOINT += `&categories=${categoryId}`;
+      else if (type === "tag") ENDPOINT += `&tags=${categoryId}`;
 
       try {
         const response = await fetch(ENDPOINT, {
@@ -57,29 +56,22 @@ const InfinitePosts = ({ className, type = "home", categoryId = 0 }) => {
       }
     });
 
-    if (sessionStorage.getItem(`${type}`) && newVisit) {
-      const cachedData = JSON.parse(sessionStorage.getItem(`${type}`));
-      setData({
-        posts: [...cachedData.posts],
-        isLoading: false,
-        countPosts: JSON.parse(sessionStorage.getItem("countPosts")),
-      });
-      setOffset(cachedData.posts.length);
+    if (type === "home") {
+      if (sessionStorage.getItem(`${type}`) && newVisit) {
+        const cachedData = JSON.parse(sessionStorage.getItem(`${type}`));
+        setData({
+          posts: [...cachedData.posts],
+          isLoading: false,
+          countPosts: JSON.parse(sessionStorage.getItem("countPosts")),
+        });
+        setOffset(cachedData.posts.length);
+      }
     }
 
     if (!isError) {
-      if (
-        !data.isLoading &&
-        data.countPosts === data.posts.length &&
-        categoryId === oldCatId
-      )
-        return;
+      if (!data.isLoading && data.countPosts === data.posts.length) return;
 
-      if (data.posts.length <= data.countPosts || categoryId !== oldCatId) {
-        if (categoryId !== oldCatId) {
-          window.location.reload();
-          setOldCatId(categoryId);
-        }
+      if (data.posts.length <= data.countPosts) {
         intersectionObserver.observe(postsContainer.current);
 
         if (!sessionStorage.getItem(`${type}`)) loadPosts();
@@ -94,7 +86,12 @@ const InfinitePosts = ({ className, type = "home", categoryId = 0 }) => {
       intersectionObserver.disconnect();
       clearTimeout(timeoutId);
     };
-  }, [offset, categoryId, type]);
+  }, [offset]);
+
+  useEffect(() => {
+    setData({ posts: [], isLoading: true, countPosts: 0 });
+    setOffset(0);
+  }, [categoryId, type]);
 
   const handleCache = () => {
     type === "home" && sessionStorage.setItem(`${type}`, JSON.stringify(data));
