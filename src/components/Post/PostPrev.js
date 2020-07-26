@@ -23,8 +23,6 @@ const PostPrev = ({ post, handleCache }) => {
 
     loadImage();
   }, [post]);
-
-  console.log(image.images[0])
   
   return (
     <Link to={`/wpisy/${post.slug}`} className="postPrev" onClick={handleCache}>
