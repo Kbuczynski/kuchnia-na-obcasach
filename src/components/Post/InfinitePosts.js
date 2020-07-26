@@ -5,7 +5,7 @@ import PostPrev from "./PostPrev";
 import { LazyLoadComponent } from "react-lazy-load-image-component";
 
 const InfinitePosts = ({ className, type = "home", categoryId = 0 }) => {
-  const TIMEOUT = 1000;
+  const TIMEOUT = 3000;
   const postsContainer = useRef();
 
   const [data, setData] = useState({
@@ -30,7 +30,9 @@ const InfinitePosts = ({ className, type = "home", categoryId = 0 }) => {
       else if (type === "tag") ENDPOINT += `&tags=${oldCatId}`;
 
       try {
-        const response = await fetch(ENDPOINT, { signal: signal });
+        const response = await fetch(ENDPOINT, {
+          signal: signal,
+        });
 
         if (!response.ok) return;
 
@@ -60,7 +62,7 @@ const InfinitePosts = ({ className, type = "home", categoryId = 0 }) => {
       setData({
         posts: [...cachedData.posts],
         isLoading: false,
-        countPosts: JSON.parse(sessionStorage.getItem("countPosts"))
+        countPosts: JSON.parse(sessionStorage.getItem("countPosts")),
       });
       setOffset(cachedData.posts.length);
     }

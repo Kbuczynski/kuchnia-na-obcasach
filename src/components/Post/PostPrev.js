@@ -23,6 +23,8 @@ const PostPrev = ({ post, handleCache }) => {
 
     loadImage();
   }, [post]);
+
+  console.log(image.images[0])
   
   return (
     <Link to={`/wpisy/${post.slug}`} className="postPrev" onClick={handleCache}>
@@ -40,6 +42,7 @@ const PostPrev = ({ post, handleCache }) => {
             effect="blur"
           />
           :
+          image.images[0] !== undefined &&
           <LazyLoadImage
             alt={image.images[0].slug}
             height={image.images[0].media_details.sizes.large.height}

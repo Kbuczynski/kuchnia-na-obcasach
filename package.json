@@ -2,7 +2,7 @@
   "name": "kuchnia-na-obcasach",
   "version": "0.1.0",
   "author": "kbuczynski",
-  "homepage": "https://kuchnianaobcasach.com.pl/",
+  "homepage": "http://kuchnianaobcasach.com.pl/",
   "private": true,
   "dependencies": {
     "@react-pdf/renderer": "^1.6.9",
