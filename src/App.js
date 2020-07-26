@@ -38,14 +38,14 @@ const App = () => {
 
       if (!response.ok) return;
 
-      setPostsNumber(parseInt(response.headers.get("X-WP-Total"), 10));
+      setPostsNumber(await parseInt(response.headers.get("X-WP-Total"), 10));
     } catch {
       return;
     }
   };
 
   useEffect(() => {
-    getPostsNumber();
+    !sessionStorage.getItem("countPosts") && getPostsNumber();
 
     if (!sessionStorage.getItem("countPosts") && postsNumber !== 0) 
         sessionStorage.setItem("countPosts", JSON.stringify(postsNumber));
