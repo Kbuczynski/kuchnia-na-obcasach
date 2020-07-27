@@ -17,6 +17,37 @@ const InfinitePosts = ({ className, type = "home", categoryId = 0 }) => {
   const [newVisit, setNewVisit] = useState(true);
   const [timeoutId, setTimeoutId] = useState(0);
   const [isError, setIsError] = useState(false);
+  const [oldId, setOldId] = useState(categoryId);
+
+  const addOffset = () => setOffset(offset + POSTS_PER_PAGE);
+
+  const intersectionObserver = new IntersectionObserver((entries) => {
+    if (entries[0].intersectionRatio > 0) {
+      const currentTimeoutId = setTimeout(addOffset, TIMEOUT);
+      setTimeoutId(currentTimeoutId);
+    }
+  });
+
+  useEffect(() => {
+    if (type !== "home") {
+      setData({ posts: [], isLoading: true, countPosts: 0 });
+      setOffset(0);
+    }
+  }, [categoryId, type]);
+
+  useEffect(() => {
+    if (type === "home") {
+      if (sessionStorage.getItem(`${type}`) && newVisit) {
+        const cachedData = JSON.parse(sessionStorage.getItem(`${type}`));
+        setData({
+          posts: [...cachedData.posts],
+          isLoading: false,
+          countPosts: JSON.parse(sessionStorage.getItem("countPosts")),
+        });
+        setOffset(cachedData.posts.length);
+      }
+    } 
+  }, [newVisit, type]);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -47,35 +78,23 @@ const InfinitePosts = ({ className, type = "home", categoryId = 0 }) => {
       }
     };
 
-    const addOffset = () => setOffset(offset + POSTS_PER_PAGE);
-
-    const intersectionObserver = new IntersectionObserver((entries) => {
-      if (entries[0].intersectionRatio > 0) {
-        const currentTimeoutId = setTimeout(addOffset, TIMEOUT);
-        setTimeoutId(currentTimeoutId);
-      }
-    });
-
-    if (type === "home") {
-      if (sessionStorage.getItem(`${type}`) && newVisit) {
-        const cachedData = JSON.parse(sessionStorage.getItem(`${type}`));
-        setData({
-          posts: [...cachedData.posts],
-          isLoading: false,
-          countPosts: JSON.parse(sessionStorage.getItem("countPosts")),
-        });
-        setOffset(cachedData.posts.length);
-      }
-    }
-
     if (!isError) {
       if (!data.isLoading && data.countPosts === data.posts.length) return;
 
       if (data.posts.length <= data.countPosts) {
+        if (categoryId !== oldId) {
+          setOldId(categoryId);
+          window.location.reload();
+        }
         intersectionObserver.observe(postsContainer.current);
 
-        if (!sessionStorage.getItem(`${type}`)) loadPosts();
-        else if (!newVisit) loadPosts();
+        if (type === "home") {
+          if (!sessionStorage.getItem(`${type}`)) loadPosts();
+          else if (!newVisit) loadPosts();
+        } else {
+          loadPosts();
+          setNewVisit(false);
+        }
       }
 
       if (sessionStorage.getItem(`${type}`) && newVisit) setNewVisit(false);
@@ -87,11 +106,6 @@ const InfinitePosts = ({ className, type = "home", categoryId = 0 }) => {
       clearTimeout(timeoutId);
     };
   }, [offset]);
-
-  useEffect(() => {
-    setData({ posts: [], isLoading: true, countPosts: 0 });
-    setOffset(0);
-  }, [categoryId, type]);
 
   const handleCache = () => {
     type === "home" && sessionStorage.setItem(`${type}`, JSON.stringify(data));

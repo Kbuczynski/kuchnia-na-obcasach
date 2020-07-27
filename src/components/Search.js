@@ -48,6 +48,7 @@ const Search = withRouter(({ history, handleTopBar }) => {
         className="search__input"
         value={value}
         onChange={handleInput}
+        autoComplete="off"
       />
 
       <button
