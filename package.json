@@ -1,14 +1,20 @@
 {
   "name": "kuchnia-na-obcasach",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "author": "kbuczynski",
-  "homepage": "http://kuchnianaobcasach.com.pl/",
+  "homepage": "https://kuchnianaobcasach.com.pl/",
   "private": true,
+  "reactSnap": {
+    "puppeteerArgs": [
+      "--no-sandbox",
+      "--disable-setuid-sandbox"
+    ],
+    "puppeteer": {
+      "waitUntil": "networkidle0"
+    }
+  },
   "dependencies": {
     "@react-pdf/renderer": "^1.6.9",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
     "html-to-text": "^5.1.1",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
@@ -20,11 +26,14 @@
     "react-share": "^4.2.1",
     "smoothscroll-polyfill": "^0.4.4"
   },
+  "devDependencies": {
+    "@babel/plugin-transform-react-jsx": "^7.10.4",
+    "gh-pages": "^3.1.0",
+    "react-snap": "^1.23.0"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
     "postbuild": "react-snap",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
@@ -43,19 +52,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "reactSnap": {
-    "puppeteerArgs": [
-      "--no-sandbox",
-      "--disable-setuid-sandbox"
-    ],
-    "puppeteer": {
-      "waitUntil": "networkidle0"
-    }
-  },
-  "devDependencies": {
-    "@babel/plugin-transform-react-jsx": "^7.10.4",
-    "gh-pages": "^3.1.0",
-    "react-snap": "^1.23.0"
   }
 }

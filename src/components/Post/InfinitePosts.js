@@ -5,7 +5,7 @@ import PostPrev from "./PostPrev";
 import { LazyLoadComponent } from "react-lazy-load-image-component";
 
 const InfinitePosts = ({ className, type = "home", categoryId = 0 }) => {
-  const TIMEOUT = 3000;
+  const TIMEOUT = 1000;
   const postsContainer = useRef();
 
   const [data, setData] = useState({
@@ -17,7 +17,6 @@ const InfinitePosts = ({ className, type = "home", categoryId = 0 }) => {
   const [newVisit, setNewVisit] = useState(true);
   const [timeoutId, setTimeoutId] = useState(0);
   const [isError, setIsError] = useState(false);
-  const [oldId, setOldId] = useState(categoryId);
 
   const addOffset = () => setOffset(offset + POSTS_PER_PAGE);
 
@@ -46,7 +45,7 @@ const InfinitePosts = ({ className, type = "home", categoryId = 0 }) => {
         });
         setOffset(cachedData.posts.length);
       }
-    } 
+    }
   }, [newVisit, type]);
 
   useEffect(() => {
@@ -82,10 +81,6 @@ const InfinitePosts = ({ className, type = "home", categoryId = 0 }) => {
       if (!data.isLoading && data.countPosts === data.posts.length) return;
 
       if (data.posts.length <= data.countPosts) {
-        if (categoryId !== oldId) {
-          setOldId(categoryId);
-          window.location.reload();
-        }
         intersectionObserver.observe(postsContainer.current);
 
         if (type === "home") {
@@ -113,7 +108,7 @@ const InfinitePosts = ({ className, type = "home", categoryId = 0 }) => {
   };
 
   return (
-    <div className={className} ref={postsContainer}>
+    <div className={className}>
       {data.isLoading ? (
         <Preloader />
       ) : data.posts.length === 0 ? (
@@ -127,6 +122,7 @@ const InfinitePosts = ({ className, type = "home", categoryId = 0 }) => {
           );
         })
       )}
+      <div ref={postsContainer}></div>
     </div>
   );
 };
