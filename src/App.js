@@ -6,7 +6,6 @@ import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 import { API } from "./data";
 import CookiesAlert from "./components/CookiesAlert";
-import { Font } from "@react-pdf/renderer";
 
 const Post = lazy(() => import("./components/Post/Post"));
 const PageNotFound = lazy(() => import("./components/PageNotFound"));
@@ -20,18 +19,6 @@ const App = () => {
   const [showScroll, setShowScroll] = useState(false);
   const [postsNumber, setPostsNumber] = useState(0);
   const [isAcceptCookie, setIsAcceptCookie] = useState(false);
-
-  const registerFont = () => {
-    Font.register({
-      family: "Roboto",
-      src:
-        "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-medium-webfont.ttf",
-    });
-  }
-  
-  useEffect(() => {
-    registerFont();
-  }, [])
 
   const handleScroll = () => {
     const scrollY = window.scrollY,

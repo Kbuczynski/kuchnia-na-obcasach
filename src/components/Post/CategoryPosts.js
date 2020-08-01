@@ -22,6 +22,8 @@ const CategoryPosts = ({
     ENDPOINT += `?slug=${slug}`;
 
     const getCategory = async () => {
+      setData({ category: [], isLoading: true });
+      
       try {
         const response = await fetch(ENDPOINT);
 

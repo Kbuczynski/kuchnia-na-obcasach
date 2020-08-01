@@ -40,7 +40,6 @@
     filter: opacity(.8);
     transform: translate(-50%, -100vh) rotate(90deg);
     transition: transform .5s .1s ease;
-
     z-index: 2;
   }
 
@@ -50,10 +49,6 @@
 
   &:hover::after {
     transform: translate(-50%, -50%)  rotate(90deg);
-  }
-
-  &:hover &__content > img {
-    transform: scale(1.1);
   }
 
   &__title {

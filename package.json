@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@react-pdf/renderer": "^1.6.9",
+    "file-saver": "^2.0.2",
     "html-to-text": "^5.1.1",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
@@ -33,7 +34,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && echo '/* /index.html 200' | cat >build/_redirects ",
     "postbuild": "react-snap",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"

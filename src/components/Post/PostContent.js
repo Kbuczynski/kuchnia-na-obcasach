@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import prettierTitle from "../../functions/prettierTitle";
 import removeWPClass from "../../functions/removeWPClass";
-import { PDFDownloadLink } from "@react-pdf/renderer";
-import PostPDF from "./PostPDF";
 import PostArrows from "./PostArrows";
 import CommentsShow from "../Comments/CommentsShow";
 import CommentsForm from "../Comments/CommentsForm";
@@ -12,13 +10,14 @@ import {
   TwitterShareButton,
 } from "react-share";
 import RandomPosts from "./RandomPosts";
+import { generatePDF } from "../../functions/generatePDF";
 
 const PostContent = ({ post }) => {
   const [isSend, setIsSend] = useState(false);
   const [isCommentError, setIsCommentError] = useState(false);
   const shareUrl = window.location.href;
 
-  const handleView = () => window.scrollTo(0,0);
+  const handleView = () => window.scrollTo(0, 0);
 
   return (
     <main className="postContent">
@@ -32,21 +31,19 @@ const PostContent = ({ post }) => {
             __html: removeWPClass(post.content.rendered),
           }}
         ></div>
-        <PDFDownloadLink
+
+        <button
           className="postContent__article__download"
-          document={<PostPDF post={post} />}
-          fileName={`Kuchnia na obcasach - ${prettierTitle(
-            post.title.rendered
-          )}.pdf`}
-        >
-          {({ loading, error }) =>
-            loading
-              ? "Przygotowywanie pliku PDF..."
-              : error
-              ? "Ups coś poszło nie tak"
-              : "Pobierz przepis!"
+          onClick={() =>
+            generatePDF(
+              `Kuchnia na obcasach - ${prettierTitle(post.title.rendered)}.pdf`,
+              post
+            )
           }
-        </PDFDownloadLink>
+        >
+          Pobierz przepis!
+        </button>
+
         <div className="postContent__article__share">
           <p>Udostępnij na:</p>
           <FacebookShareButton url={shareUrl}>

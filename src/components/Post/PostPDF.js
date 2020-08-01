@@ -13,11 +13,11 @@ import logo from "../../assets/avatar.jpg";
 const htmlToText = require("html-to-text");
 
 const PostPDF = ({ post }) => {
-  // Font.register({
-  //   family: "Roboto",
-  //   src:
-  //     "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-medium-webfont.ttf",
-  // });
+  Font.register({
+    family: "Roboto",
+    src:
+      "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-medium-webfont.ttf",
+  });
 
   const styles = StyleSheet.create({
     font: {

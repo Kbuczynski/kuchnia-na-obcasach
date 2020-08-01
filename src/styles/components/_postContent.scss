@@ -63,6 +63,9 @@
       font-weight: normal;
       position: relative;
       margin-left: 3rem;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
 
       &::before {
         font-family: "fontello";
