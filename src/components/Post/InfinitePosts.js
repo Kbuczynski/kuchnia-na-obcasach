@@ -18,8 +18,6 @@ const InfinitePosts = ({ className, type = "home", categoryId = 0 }) => {
   const [timeoutId, setTimeoutId] = useState(0);
   const [isError, setIsError] = useState(false);
 
-  console.log(categoryId)
-
   const addOffset = () => setOffset(offset + POSTS_PER_PAGE);
 
   const intersectionObserver = new IntersectionObserver((entries) => {

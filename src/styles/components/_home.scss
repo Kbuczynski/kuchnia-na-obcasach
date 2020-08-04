@@ -1,73 +1,117 @@
 .home {
-    @include wrapper;
-    grid-template-rows: 100vh 1fr;
+  @include wrapper;
+  grid-template-rows: 100vh 1fr;
 
-    @include respond-to("large") {
-        grid-template-rows: 60vh 1fr;
-    }
+  @include respond-to("large") {
+    grid-template-rows: 60vh 40vh 1fr;
+  }
+
+  &__header {
+    @include center;
+    grid-row: 1;
+    grid-column: 2;
+    background-color: $white;
+    overflow: hidden;
 
     @include respond-to("medium") {
-        grid-template-rows: 80vh 1fr;
+      padding: 2rem 0 3rem 0;
+    }
+  }
+
+  &__about {
+    grid-row: 2;
+    grid-column: 2;
+    background-color: $white;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__title {
+      padding: 2rem;
+      position: relative;
+
+      @include respond-to("small") {
+        padding: 1rem;
+      }
+
+      & h1 {
+        font-weight: 400;
+        font-size: 2rem;
+
+        @include respond-to("small") {
+          font-size: 1.2rem;
+        }
+      }
+
+      &::before {
+        @include decorative-line-left;
+      }
+
+      &::after {
+        @include decorative-line-right;
+      }
     }
 
-    &__header {
-        @include center;
-        grid-row: 1;
-        grid-column: 2;
-        background-color: $white;
-        overflow: hidden;
-
-        @include respond-to("medium") {
-            padding: 2rem 0 3rem 0;
-        }
+    &__text {
+      letter-spacing: 1px;
+      line-height: 30px;
+      text-align: justify;
     }
 
-    &__posts {
-        grid-row: 2;
-        grid-column: 2;
-        background-color: $white;
-        padding-bottom: 5rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        &__title {
-            padding: 2rem;
-            position: relative;
-
-            @include respond-to("small") {
-                padding: 1rem;
-            }
-
-            & h2 {
-                font-weight: 400; 
-                font-size: 2rem;
-
-                @include respond-to("small") {
-                    font-size: 1.2rem;
-                }
-            }
-
-            &::before {
-                @include decorative-line-left;
-            }
-
-            &::after {
-                @include decorative-line-right;
-            }
-        }
-
-        &__container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            row-gap: 1rem;
-            column-gap: .5rem;
-            position: relative;
-            width: 100%;
-
-            @include respond-to("small") {
-                grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
-            }
-        }
+    &__button {
+        margin-top: 2rem;
+        @include button("Znajdź coś dla siebie!");
     }
+  }
+
+  &__posts {
+    grid-row: 3;
+    grid-column: 2;
+    background-color: $white;
+    padding-bottom: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__title {
+      padding: 2rem;
+      position: relative;
+
+      @include respond-to("small") {
+        padding: 1rem;
+      }
+
+      & h2 {
+        font-weight: 400;
+        font-size: 2rem;
+
+        @include respond-to("small") {
+          font-size: 1.2rem;
+        }
+      }
+
+      &::before {
+        @include decorative-line-left;
+      }
+
+      &::after {
+        @include decorative-line-right;
+      }
+    }
+
+    &__container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      row-gap: 1rem;
+      column-gap: 0.5rem;
+      position: relative;
+      width: 100%;
+
+      @include respond-to("small") {
+        grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+      }
+    }
+  }
 }
