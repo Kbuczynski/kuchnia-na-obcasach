@@ -43,12 +43,14 @@
     z-index: 2;
   }
 
-  &:hover::before {
-    transform: translateY(0);
-  }
-
-  &:hover::after {
-    transform: translate(-50%, -50%)  rotate(90deg);
+  @include respond-to('only-desktop') {
+    &:hover::before {
+      transform: translateY(0);
+    }
+  
+    &:hover::after {
+      transform: translate(-50%, -50%)  rotate(90deg);
+    }
   }
 
   &__title {
@@ -99,7 +101,6 @@
     @include respond-to("small") {
       max-height: 400px;
     }    
-
 
     & > span > img {
       transform: scale(.6);
