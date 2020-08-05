@@ -159,7 +159,6 @@ const Navigation = () => {
               activeClassName="active"
               to="/o-mnie"
               className="navigation__bottom__menu__item__link"
-              onClick={handleClick}
             >
               O mnie
             </NavLink>
@@ -170,7 +169,6 @@ const Navigation = () => {
               activeClassName="active"
               to="/kontakt-i-wspolpraca"
               className="navigation__bottom__menu__item__link"
-              onClick={handleClick}
             >
               Kontakt i współpraca
             </NavLink>
