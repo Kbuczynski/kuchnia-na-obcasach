@@ -168,6 +168,10 @@
     line-height: 1.15; /* 1 */
     margin: 0; /* 2 */
   }
+
+  button:focus {
+    outline: 0;
+  }
   
   /**
    * Show the overflow in IE.

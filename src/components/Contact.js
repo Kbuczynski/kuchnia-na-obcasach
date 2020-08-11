@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import bigActive from "../assets/companies/BIG-ACTIVE.jpg";
 import fitEasy from "../assets/companies/FIT_EASY.jpg";
 import helio from "../assets/companies/HELIO.jpg";
@@ -54,6 +54,11 @@ const logos = [
 ];
 
 const Contact = () => {
+
+  useEffect(() => {
+    document.title = `Kontakt i współpraca - Kuchnia na obcasach`;
+  }, [])
+  
   return (
     <main className="contact">
       <section className="contact__container">

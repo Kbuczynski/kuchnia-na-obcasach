@@ -19,8 +19,8 @@ const HomeAbout = () => {
         Kuchnia na Obcasach to blog kulinarny z przepisami na smaczne, zdrowe i
         sezonowe potrawy. Znajdziecie tu przepisy na dania klasyczne, z nutką
         nowoczesności, a także potrawy dietetyczne dla osób zdrowo odżywiających
-        się i będących fit wraz z podaną kalorycznością i rozkładem makro
-        składników. Znajdziecie tu także sporą dawkę inspiracji na słodkie
+        się i będących fit wraz z podaną kalorycznością i rozkładem
+        makroskładników. Znajdziecie tu także sporą dawkę inspiracji na słodkie
         wypieki, desery i fit słodkości. Osoby, które dopiero zaczynają swoją
         przygodę z gotowaniem na pewno znajdą tutaj wiele cennych wskazówek i
         porad kulinarnych. Serdecznie zapraszam do korzystania i próbowania

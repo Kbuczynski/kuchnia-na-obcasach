@@ -2,6 +2,7 @@ import React, { useEffect, useState, Suspense, lazy } from "react";
 import { Redirect } from "react-router-dom";
 import { API } from "../../data";
 import Preloader from "../Preloader";
+import prettierTitle from "../../functions/prettierTitle";
 
 const InfinitePosts = lazy(() => import("./InfinitePosts"));
 
@@ -12,6 +13,10 @@ const CategoryPosts = ({
   type = "tag",
 }) => {
   const [data, setData] = useState({ category: [], isLoading: true });
+
+  useEffect(() => {
+    document.title = `${prettierTitle(slug).replace(/-/g, " ")} - Kuchnia na obcasach`;
+  }, [slug])
 
   useEffect(() => {
     let ENDPOINT = `${API}`;

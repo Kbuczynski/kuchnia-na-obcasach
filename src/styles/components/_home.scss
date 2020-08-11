@@ -1,11 +1,6 @@
 .home {
   @include wrapper;
-  grid-template-rows: 100vh 1fr;
-  grid-template-rows: 60vh 45vh 1fr;
-
-  @include respond-to('large') {
-    grid-template-rows: 60vh 50vh 1fr;
-  }
+  grid-template-rows: 70vh calc(1fr-50vh) 1fr;
 
   &__header {
     @include center;
@@ -21,7 +16,6 @@
 
   &__about {
     padding-top: 2rem;
-    padding-bottom: 2rem;
     grid-row: 2;
     grid-column: 2;
     background-color: $white;
@@ -64,6 +58,10 @@
     &__button {
         margin-top: 1rem;
         @include button("Znajdź coś dla siebie!");
+
+        @include respond-to("medium") {
+          margin-bottom: 2rem;
+        }
     }
   }
 

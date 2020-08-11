@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { API } from "../data";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 
 const Search = withRouter(({ history, handleTopBar }) => {
   const [tags, setTags] = useState({ tags: [], isLoading: true });
@@ -19,6 +19,11 @@ const Search = withRouter(({ history, handleTopBar }) => {
     };
 
     value.length > 0 && searchTags();
+    value.length === 0 && setTags({ tags: [], isLoading: true })
+
+    return () => {
+      setTags({ tags: [], isLoading: true })
+    }
   }, [value]);
 
   const handleInput = (e) => {
@@ -26,7 +31,7 @@ const Search = withRouter(({ history, handleTopBar }) => {
     tags.tags.length > 0 && handleSearch();
   };
 
-  const handleSearch = (e) => {
+  const handleSearch = () => {
     setLink(tags.tags[0].slug);
   };
 
@@ -38,18 +43,30 @@ const Search = withRouter(({ history, handleTopBar }) => {
     e.target.reset();
   };
 
+  const handleLink = () => {
+    handleTopBar();
+    setValue("");
+  }
+
   return (
     <form className="search" onSubmit={handleSubmit}>
       <label htmlFor="search" className="search__label">Wyszukaj</label>
+      <div className="search__box">
       <input
         id="search"
         type="text"
         placeholder="Wyszukaj po tagu"
-        className="search__input"
+        className="search__box__input"
         value={value}
         onChange={handleInput}
         autoComplete="off"
       />
+      <div className="search__box__tips">
+        {tags.tags.length > 0 && tags.tags.map(({name, slug}, index) => {
+          return <Link to={`/tagi/${slug}`} key={index} onClick={handleLink}>{name}</Link>
+        })}
+      </div>
+      </div>
 
       <button
         type="submit"

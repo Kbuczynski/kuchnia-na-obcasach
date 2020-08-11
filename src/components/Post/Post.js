@@ -2,6 +2,7 @@ import React, { useState, useEffect, Suspense, lazy } from "react";
 import { Redirect } from "react-router-dom";
 import { API } from "../../data";
 import Preloader from "../Preloader";
+import prettierTitle from "../../functions/prettierTitle";
 const PostContent = lazy(() => import("./PostContent"));
 
 const Post = ({
@@ -13,6 +14,10 @@ const Post = ({
     post: [],
     isLoading: true,
   });
+
+  useEffect(() => {
+    document.title = `${prettierTitle(slug).replace(/-/g, " ")} - Kuchnia na obcasach`;
+  }, [slug])
 
   useEffect(() => {
     const loadPosts = async () => {

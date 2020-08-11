@@ -91,21 +91,23 @@
   overflow: hidden;
   border: 0.1rem solid $black;
 
-  &:hover::before {
-    transform: translateY(0);
-  }
-
-  &::before {
-    content: $text;
-    color: $white;
-    @include center;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: $black;
-    transform: translateY(-100%);
-    transition: transform 0.2s ease-in-out;
+  @include respond-to("only-desktop") {
+    &:hover::before {
+      transform: translateY(0);
+    }
+  
+    &::before {
+      content: $text;
+      color: $white;
+      @include center;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: $black;
+      transform: translateY(-100%);
+      transition: transform 0.2s ease-in-out;
+    }
   }
 }

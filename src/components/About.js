@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import aboutImg from "../assets/about.jpg";
 
 const About = () => {
+  useEffect(() => {
+    document.title = `O mnie - Kuchnia na obcasach`;
+  }, [])
+
   return (
     <main className="about">
       <section className="about__container">
