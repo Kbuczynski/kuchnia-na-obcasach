@@ -1,6 +1,6 @@
 .home {
   @include wrapper;
-  grid-template-rows: 70vh calc(1fr-50vh) 1fr;
+  grid-template-rows: 70vh 55vh 1fr;
 
   &__header {
     @include center;
