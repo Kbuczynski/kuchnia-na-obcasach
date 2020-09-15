@@ -104,7 +104,6 @@
 
     & > span > img {
       transform: scale(.6);
-      transition: transform .3s ease;
 
       @include respond-to("small") {
         transform: scale(.4);

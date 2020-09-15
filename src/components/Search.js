@@ -55,7 +55,7 @@ const Search = withRouter(({ history, handleTopBar }) => {
       <input
         id="search"
         type="text"
-        placeholder="Wyszukaj po tagu"
+        placeholder="Wyszukaj przepis"
         className="search__box__input"
         value={value}
         onChange={handleInput}

@@ -4,7 +4,7 @@ import Preloader from "./components/Preloader";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
-import { API } from "./data";
+import { API, GOOGLE_ADS_CLIENT, GOOGLE_ADS_SRC } from "./data";
 import CookiesAlert from "./components/CookiesAlert";
 
 const Post = lazy(() => import("./components/Post/Post"));
@@ -47,19 +47,33 @@ const App = () => {
   useEffect(() => {
     !sessionStorage.getItem("countPosts") && getPostsNumber();
 
-    if (!sessionStorage.getItem("countPosts") && postsNumber !== 0) 
-        sessionStorage.setItem("countPosts", JSON.stringify(postsNumber));
+    if (!sessionStorage.getItem("countPosts") && postsNumber !== 0)
+      sessionStorage.setItem("countPosts", JSON.stringify(postsNumber));
   });
+
+  useEffect(() => {
+    if (navigator.userAgent !== "ReactSnap") {
+      const googleAdScript = document.createElement("script");
+      googleAdScript.setAttribute("data-ad-client", `${GOOGLE_ADS_CLIENT}`);
+      googleAdScript.setAttribute("src", `${GOOGLE_ADS_SRC}`);
+      googleAdScript.setAttribute("async", "true");
+
+      const head = document.head;
+      head.insertBefore(googleAdScript, head.firstElementChild);
+    }
+  }, []);
 
   const handleCookies = () => {
     localStorage.setItem("cookies", "true");
     setIsAcceptCookie(true);
-  }
+  };
 
   return (
     <BrowserRouter>
       <Navigation />
-      {!localStorage.getItem("cookies") && !isAcceptCookie && <CookiesAlert handleCookies={handleCookies}/>}
+      {!localStorage.getItem("cookies") && !isAcceptCookie && (
+        <CookiesAlert handleCookies={handleCookies} />
+      )}
       {showScroll && <ScrollToTop />}
 
       <Suspense fallback={<Preloader />}>
