@@ -11,7 +11,8 @@
     ],
     "puppeteer": {
       "waitUntil": "networkidle0"
-    }
+    },
+    "skipThirdPartyRequests": true
   },
   "dependencies": {
     "@react-pdf/renderer": "^1.6.9",
