@@ -9,28 +9,28 @@ const CommentsShow = ({ post, isSend, setIsSend, setIsCommentError }) => {
 
   useEffect(() => {
     const loadComments = async () => {
-        try {
-          const response = await fetch(
-            `${API}comments?post=${post.id}&order=asc`
-          );
-          if (!response.ok) return;
-          setData({ comments: await response.json(), isLoading: false });
-        } catch {
-          return;
-        }
-      };
+      try {
+        const response = await fetch(
+          `${API}comments?per_page=100&post=${post.id}&order=asc`
+        );
+        if (!response.ok) return;
+        setData({ comments: await response.json(), isLoading: false });
+      } catch {
+        return;
+      }
+    };
 
     loadComments();
 
     if (isSend) {
-    loadComments();
+      loadComments();
 
-    setTimeout(() => {
-      setIsCommentError(false);
-      setIsSend(false);
-    }, 1000);
-  }
-  }, [post, isSend, setIsSend]);  
+      setTimeout(() => {
+        setIsCommentError(false);
+        setIsSend(false);
+      }, 1000);
+    }
+  }, [post, isSend, setIsSend]);
 
   return (
     <>
