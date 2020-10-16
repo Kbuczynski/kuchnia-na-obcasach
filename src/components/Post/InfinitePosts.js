@@ -3,6 +3,7 @@ import { API, POSTS_PER_PAGE } from "../../data";
 import Preloader from "../Preloader";
 import PostPrev from "./PostPrev";
 import { LazyLoadComponent } from "react-lazy-load-image-component";
+import GoogleAd from "../GoogleAd";
 
 const InfinitePosts = ({ className, type = "home", categoryId = 0 }) => {
   const TIMEOUT = 1000;
@@ -115,6 +116,17 @@ const InfinitePosts = ({ className, type = "home", categoryId = 0 }) => {
         <p>Brak postów</p>
       ) : (
         data.posts.map((post, index) => {
+          if (index % 5 === 0 && index !== 0) {
+            return (
+              <LazyLoadComponent key={index}>
+                <GoogleAd
+                  slot={7242566208}
+                  className={`postPrev`}
+                  format={`fluid`}
+                />
+              </LazyLoadComponent>
+            );
+          }
           return (
             <LazyLoadComponent key={index}>
               <PostPrev post={post} handleCache={handleCache} />

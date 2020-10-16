@@ -16,8 +16,11 @@ const Post = ({
   });
 
   useEffect(() => {
-    document.title = `${prettierTitle(slug).replace(/-/g, " ")} - Kuchnia na obcasach`;
-  }, [slug])
+    document.title = `${prettierTitle(slug).replace(
+      /-/g,
+      " "
+    )} - Kuchnia na obcasach`;
+  }, [slug]);
 
   useEffect(() => {
     const loadPosts = async () => {

@@ -11,6 +11,7 @@ import {
 } from "react-share";
 import RandomPosts from "./RandomPosts";
 import { generatePDF } from "../../functions/generatePDF";
+import GoogleAd from "../GoogleAd";
 
 const PostContent = ({ post }) => {
   const [isSend, setIsSend] = useState(false);
@@ -25,12 +26,25 @@ const PostContent = ({ post }) => {
         <h1 className="postContent__article__title">
           {prettierTitle(post.title.rendered)}
         </h1>
+
+        <GoogleAd
+          slot={7929301226}
+          className={`postContent__article__topAd`}
+          format={`auto`}
+        />
+
         <div
           className="postContent__article__content"
           dangerouslySetInnerHTML={{
             __html: removeWPClass(post.content.rendered),
           }}
         ></div>
+
+        <GoogleAd
+          slot={5059595307}
+          className={`postContent__article__bottomAd`}
+          format={`fluid`}
+        />
 
         <button
           className="postContent__article__download"
