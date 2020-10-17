@@ -16,7 +16,7 @@ const Home = () => {
       </header>
       <section className="home__banner">
         <GoogleAd
-          slot={9637134563}
+          slot={7064696134}
           className={`home__banner__ad`}
           format={`auto`}
         />

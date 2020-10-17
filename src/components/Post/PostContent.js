@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import prettierTitle from "../../functions/prettierTitle";
 import removeWPClass from "../../functions/removeWPClass";
 import PostArrows from "./PostArrows";
@@ -16,9 +16,44 @@ import GoogleAd from "../GoogleAd";
 const PostContent = ({ post }) => {
   const [isSend, setIsSend] = useState(false);
   const [isCommentError, setIsCommentError] = useState(false);
+  const [articleImage, setArticleImage] = useState("");
+  const [firstHalfArticle, setFirstHalfArticle] = useState("");
+  const [secondHalfArticle, setSecondHalfArticle] = useState("");
   const shareUrl = window.location.href;
 
   const handleView = () => window.scrollTo(0, 0);
+
+  useEffect(() => {
+    const handleText = (contentText) => {
+      let firstHalf = "",
+        secondHalf = "";
+      let number = 0;
+
+      contentText.forEach((line, index) => {
+        if (line.indexOf("<ul>") !== -1) number = index;
+      });
+
+      for (let i = 0; i <= number; i++) {
+        firstHalf += contentText[i];
+      }
+
+      for (let i = number + 1; i < contentText.length; i++) {
+        secondHalf += contentText[i];
+      }
+
+      return {
+        firstHalf: firstHalf,
+        secondHalf: secondHalf,
+      };
+    };
+
+    const content = post.content.rendered.split("</figure>");
+    const contentText = content[1].split("\n");
+
+    setArticleImage(`${content[0]}</figure>`);
+    setFirstHalfArticle(handleText(contentText).firstHalf);
+    setSecondHalfArticle(handleText(contentText).secondHalf);
+  }, [post]);
 
   return (
     <main className="postContent">
@@ -26,6 +61,13 @@ const PostContent = ({ post }) => {
         <h1 className="postContent__article__title">
           {prettierTitle(post.title.rendered)}
         </h1>
+
+        <div
+          className="postContent__article__content"
+          dangerouslySetInnerHTML={{
+            __html: articleImage,
+          }}
+        ></div>
 
         <GoogleAd
           slot={7929301226}
@@ -36,14 +78,27 @@ const PostContent = ({ post }) => {
         <div
           className="postContent__article__content"
           dangerouslySetInnerHTML={{
-            __html: removeWPClass(post.content.rendered),
+            __html: removeWPClass(firstHalfArticle),
+          }}
+        ></div>
+
+        <GoogleAd
+          slot={1503493675}
+          className={`postContent__article__centerAd`}
+          format={`auto`}
+        />
+
+        <div
+          className="postContent__article__content"
+          dangerouslySetInnerHTML={{
+            __html: removeWPClass(secondHalfArticle),
           }}
         ></div>
 
         <GoogleAd
           slot={5059595307}
           className={`postContent__article__bottomAd`}
-          format={`fluid`}
+          format={`auto`}
         />
 
         <button
