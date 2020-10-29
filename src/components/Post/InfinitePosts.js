@@ -116,19 +116,24 @@ const InfinitePosts = ({ className, type = "home", categoryId = 0 }) => {
         <p>Brak postów</p>
       ) : (
         data.posts.map((post, index) => {
-          if (index % 5 === 0 && index !== 0) {
+          if (index % 4 === 0 && index !== 0) {
             return (
-              <LazyLoadComponent key={index}>
-                <GoogleAd
-                  slot={7242566208}
-                  className={`postPrev`}
-                  format={`fluid`}
-                />
-              </LazyLoadComponent>
+              <React.Fragment key={post.id}>
+                <LazyLoadComponent key={index}>
+                  <GoogleAd
+                    slot={7242566208}
+                    className={`postPrev`}
+                    format={`fluid`}
+                  />
+                </LazyLoadComponent>
+                <LazyLoadComponent key={post.id}>
+                  <PostPrev post={post} handleCache={handleCache} />
+                </LazyLoadComponent>
+              </React.Fragment>
             );
           }
           return (
-            <LazyLoadComponent key={index}>
+            <LazyLoadComponent key={post.id}>
               <PostPrev post={post} handleCache={handleCache} />
             </LazyLoadComponent>
           );

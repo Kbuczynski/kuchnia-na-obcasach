@@ -71,7 +71,7 @@ const PostContent = ({ post }) => {
 
         <GoogleAd
           slot={7929301226}
-          className={`postContent__article__topAd`}
+          className={`postContent__article__ad`}
           format={`auto`}
         />
 
@@ -84,7 +84,7 @@ const PostContent = ({ post }) => {
 
         <GoogleAd
           slot={1503493675}
-          className={`postContent__article__centerAd`}
+          className={`postContent__article__ad`}
           format={`auto`}
         />
 
@@ -97,7 +97,7 @@ const PostContent = ({ post }) => {
 
         <GoogleAd
           slot={5059595307}
-          className={`postContent__article__bottomAd`}
+          className={`postContent__article__ad`}
           format={`auto`}
         />
 
