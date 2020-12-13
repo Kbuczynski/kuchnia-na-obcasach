@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import prettierTitle from "../../functions/prettierTitle";
-import removeWPClass from "../../functions/removeWPClass";
 import PostArrows from "./PostArrows";
 import CommentsShow from "../Comments/CommentsShow";
 import CommentsForm from "../Comments/CommentsForm";
@@ -24,35 +23,20 @@ const PostContent = ({ post }) => {
   const handleView = () => window.scrollTo(0, 0);
 
   useEffect(() => {
-    const handleText = (contentText) => {
-      let firstHalf = "",
-        secondHalf = "";
-      let number = 0;
+    const tags = post.content.rendered.match(/<.*>/g);
+    const ulIndex = [];
 
-      contentText.forEach((line, index) => {
-        if (line.indexOf("<ul>") !== -1) number = index;
-      });
+    tags.filter(
+      (item, index) => item.indexOf("<ul>") !== -1 && ulIndex.push(index)
+    );
 
-      for (let i = 0; i <= number; i++) {
-        firstHalf += contentText[i];
-      }
-
-      for (let i = number + 1; i < contentText.length; i++) {
-        secondHalf += contentText[i];
-      }
-
-      return {
-        firstHalf: firstHalf,
-        secondHalf: secondHalf,
-      };
-    };
-
-    const content = post.content.rendered.split("</figure>");
-    const contentText = content[1].split("\n");
-
-    setArticleImage(`${content[0]}</figure>`);
-    setFirstHalfArticle(handleText(contentText).firstHalf);
-    setSecondHalfArticle(handleText(contentText).secondHalf);
+    setArticleImage(tags[0]);
+    setFirstHalfArticle(
+      [...tags.slice(1, ulIndex[ulIndex.length - 1] + 1)].join("")
+    );
+    setSecondHalfArticle(
+      [...tags.slice(ulIndex[ulIndex.length - 1] + 1)].join("")
+    );
   }, [post]);
 
   return (
@@ -78,7 +62,7 @@ const PostContent = ({ post }) => {
         <div
           className="postContent__article__content"
           dangerouslySetInnerHTML={{
-            __html: removeWPClass(firstHalfArticle),
+            __html: firstHalfArticle,
           }}
         ></div>
 
@@ -91,14 +75,14 @@ const PostContent = ({ post }) => {
         <div
           className="postContent__article__content"
           dangerouslySetInnerHTML={{
-            __html: removeWPClass(secondHalfArticle),
+            __html: secondHalfArticle,
           }}
         ></div>
 
         <GoogleAd
-          slot={5059595307}
+          slot={2208615385}
           className={`postContent__article__ad`}
-          format={`auto`}
+          format={`autorelaxed`}
         />
 
         <button
