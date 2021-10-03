@@ -1,2 +1,0 @@
-(this["webpackJsonpkuchnia-na-obcasach"]=this["webpackJsonpkuchnia-na-obcasach"]||[]).push([[11],{274:function(a,e,n){a.exports=n.p+"static/media/404.c41ac145.jpg"},595:function(a,e,n){"use strict";n.r(e);var t=n(0),c=n.n(t),s=n(274),i=n.n(s);e.default=function(){return c.a.createElement("section",{className:"pageNotFound"},c.a.createElement("div",{className:"pageNotFound__container"},c.a.createElement("img",{src:i.a,alt:"Szukana strona nie istnieje kod b\u0142\u0119du 404"})))}}}]);
-//# sourceMappingURL=11.ef6c297a.chunk.js.map
