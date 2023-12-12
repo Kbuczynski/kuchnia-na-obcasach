@@ -30,7 +30,7 @@ const CommentsShow = ({ post, isSend, setIsSend, setIsCommentError }) => {
         setIsSend(false);
       }, 1000);
     }
-  }, [post, isSend, setIsSend]);
+  }, [post, isSend, setIsSend, setIsCommentError]);
 
   return (
     <>

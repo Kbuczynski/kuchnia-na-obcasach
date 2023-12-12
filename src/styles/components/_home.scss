@@ -1,10 +1,8 @@
 .home {
   @include wrapper;
-  grid-template-rows: 70vh 15vh 55vh 1fr;
 
   &__header {
     @include center;
-    grid-row: 1;
     grid-column: 2;
     background-color: $white;
     overflow: hidden;
@@ -14,16 +12,9 @@
     }
   }
 
-  &__banner {
-    grid-row: 2;
-    grid-column: 2;
-    @include center();
-    background-color: $white;
-  }
-
   &__about {
     padding-top: 2rem;
-    grid-row: 3;
+    padding-bottom: 2rem;
     grid-column: 2;
     background-color: $white;
     display: flex;
@@ -73,7 +64,6 @@
   }
 
   &__posts {
-    grid-row: 4;
     grid-column: 2;
     background-color: $white;
     padding-bottom: 5rem;

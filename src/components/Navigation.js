@@ -22,28 +22,28 @@ const Navigation = () => {
   });
 
   useEffect(() => {
-    loadCategories();
-  }, [data.countCategories])
+    const loadCategories = async () => {
+      let ENDPOINT = `${API}categories?per_page=${data.countCategories}`;
 
-  const loadCategories = async () => {
-    let ENDPOINT = `${API}categories?per_page=${data.countCategories}`;
+      try {
+        const response = await fetch(ENDPOINT);
 
-    try {
-      const response = await fetch(ENDPOINT);
+        if (!response.ok) {
+          return;
+        }
 
-      if (!response.ok) {
+        setData({
+          categories: await response.json(),
+          isLoading: false,
+          countCategories: response.headers.get("X-WP-Total"),
+        });
+      } catch {
         return;
       }
+    };
 
-      setData({
-        categories: await response.json(),
-        isLoading: false,
-        countCategories: response.headers.get("X-WP-Total"),
-      });
-    } catch {
-      return;
-    }
-  };
+    loadCategories();
+  }, [data.countCategories]);
 
   const handleTopBar = () => {
     navTop.current.classList.toggle("reset-translate");
@@ -70,8 +70,9 @@ const Navigation = () => {
   const handleLink = (e) => {
     const link = e.target.children;
     link.length === 1 && history.push(`${link[0].getAttribute("href")}`);
-    if (window.innerWidth <= BREAKPOINT && link.length === 2) handleCategories();    
-  }
+    if (window.innerWidth <= BREAKPOINT && link.length === 2)
+      handleCategories();
+  };
 
   return (
     <nav className="navigation">
@@ -113,12 +114,28 @@ const Navigation = () => {
         ></button>
 
         <ul className="navigation__bottom__menu" ref={navBottom}>
-          <li className="navigation__bottom__menu__item" onClick={(e) => {handleClick(); handleLink(e)}}>
-            <NavLink exact to="/" className="navigation__bottom__menu__item__link" activeClassName="active">
+          <li
+            className="navigation__bottom__menu__item"
+            onClick={(e) => {
+              handleClick();
+              handleLink(e);
+            }}
+          >
+            <NavLink
+              exact
+              to="/"
+              className="navigation__bottom__menu__item__link"
+              activeClassName="active"
+            >
               Strona główna
             </NavLink>
           </li>
-          <li className="navigation__bottom__menu__item" onClick={(e) => {handleLink(e)}}>
+          <li
+            className="navigation__bottom__menu__item"
+            onClick={(e) => {
+              handleLink(e);
+            }}
+          >
             <Link
               to="#"
               className="navigation__bottom__menu__item__link"
@@ -138,7 +155,9 @@ const Navigation = () => {
                     <li
                       className="navigation__bottom__menu__item__categories__item"
                       key={id}
-                      onClick={(e) => {handleLink(e)}}
+                      onClick={(e) => {
+                        handleLink(e);
+                      }}
                     >
                       <NavLink
                         exact
@@ -153,7 +172,13 @@ const Navigation = () => {
                 })}
             </ul>
           </li>
-          <li className="navigation__bottom__menu__item" onClick={(e) => {handleClick(); handleLink(e)}}>
+          <li
+            className="navigation__bottom__menu__item"
+            onClick={(e) => {
+              handleClick();
+              handleLink(e);
+            }}
+          >
             <NavLink
               exact
               activeClassName="active"
@@ -163,7 +188,13 @@ const Navigation = () => {
               O mnie
             </NavLink>
           </li>
-          <li className="navigation__bottom__menu__item" onClick={(e) => {handleClick(); handleLink(e)}}>
+          <li
+            className="navigation__bottom__menu__item"
+            onClick={(e) => {
+              handleClick();
+              handleLink(e);
+            }}
+          >
             <NavLink
               exact
               activeClassName="active"

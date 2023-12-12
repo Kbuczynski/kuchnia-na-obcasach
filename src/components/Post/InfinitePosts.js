@@ -11,6 +11,7 @@ const InfinitePosts = ({ className, type = "home", categoryId = 0 }) => {
 
   const [data, setData] = useState({
     posts: [],
+    pinnedPosts: [],
     isLoading: true,
     countPosts: 0,
   });
@@ -30,7 +31,7 @@ const InfinitePosts = ({ className, type = "home", categoryId = 0 }) => {
 
   useEffect(() => {
     if (type !== "home") {
-      setData({ posts: [], isLoading: true, countPosts: 0 });
+      setData({ posts: [], pinnedPosts: [], isLoading: true, countPosts: 0 });
       setOffset(0);
     }
   }, [categoryId, type]);
@@ -41,6 +42,7 @@ const InfinitePosts = ({ className, type = "home", categoryId = 0 }) => {
         const cachedData = JSON.parse(sessionStorage.getItem(`${type}`));
         setData({
           posts: [...cachedData.posts],
+          pinnedPosts: [...cachedData.pinnedPosts],
           isLoading: false,
           countPosts: JSON.parse(sessionStorage.getItem("countPosts")),
         });
@@ -54,22 +56,45 @@ const InfinitePosts = ({ className, type = "home", categoryId = 0 }) => {
     const signal = abortController.signal;
 
     const loadPosts = async () => {
-      let ENDPOINT = `${API}posts?per_page=${POSTS_PER_PAGE}&offset=${offset}`;
+      let ENDPOINT_PINNED_POSTS = `${API}posts?sticky=1&per_page=100`;
+      let ENDPOINT = `${API}posts?per_page=${POSTS_PER_PAGE}&offset=${offset}&sticky=0`;
 
-      if (type === "category") ENDPOINT += `&categories=${categoryId}`;
-      else if (type === "tag") ENDPOINT += `&tags=${categoryId}`;
+      if (type === "category") {
+        ENDPOINT_PINNED_POSTS += `&categories=${categoryId}`;
+        ENDPOINT += `&categories=${categoryId}`;
+      } else if (type === "tag") {
+        ENDPOINT_PINNED_POSTS += `&tags=${categoryId}`;
+        ENDPOINT += `&tags=${categoryId}`;
+      }
 
       try {
         const response = await fetch(ENDPOINT, {
           signal: signal,
         });
+        const responsePinnedPosts = await fetch(ENDPOINT_PINNED_POSTS, {
+          signal: signal,
+        });
 
-        if (!response.ok) return;
+        let newPosts = [];
+        let pinnedPosts = [];
+
+        if (response.ok) {
+          newPosts = await response.json();
+        }
+
+        if (responsePinnedPosts.ok) {
+          pinnedPosts = await responsePinnedPosts.json();
+        }
 
         if (isError) setIsError(false);
 
+        const newPinnedPosts = pinnedPosts.filter(
+          (pinnedPost) => !data.pinnedPosts.some((p) => p.id === pinnedPost.id)
+        );
+
         setData({
-          posts: [...data.posts, ...(await response.json())],
+          posts: [...data.posts, ...newPosts],
+          pinnedPosts: [...data.pinnedPosts, ...newPinnedPosts],
           isLoading: false,
           countPosts: parseInt(response.headers.get("X-WP-Total"), 10),
         });
@@ -101,6 +126,7 @@ const InfinitePosts = ({ className, type = "home", categoryId = 0 }) => {
       intersectionObserver.disconnect();
       clearTimeout(timeoutId);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [offset]);
 
   const handleCache = () => {
@@ -115,29 +141,56 @@ const InfinitePosts = ({ className, type = "home", categoryId = 0 }) => {
       ) : data.posts.length === 0 ? (
         <p>Brak postów</p>
       ) : (
-        data.posts.map((post, index) => {
-          if (index % 4 === 0 && index !== 0) {
+        <>
+          {type === "home"
+            ? data.pinnedPosts?.map((pinnedPost, index) => {
+                if (index % 4 === 0 && index !== 0) {
+                  return (
+                    <React.Fragment key={pinnedPost.id}>
+                      <LazyLoadComponent>
+                        <GoogleAd
+                          slot={7242566208}
+                          className={`postPrev`}
+                          format={`fluid`}
+                        />
+                      </LazyLoadComponent>
+                      <LazyLoadComponent>
+                        <PostPrev post={pinnedPost} handleCache={handleCache} />
+                      </LazyLoadComponent>
+                    </React.Fragment>
+                  );
+                }
+                return (
+                  <LazyLoadComponent key={pinnedPost.id}>
+                    <PostPrev post={pinnedPost} handleCache={handleCache} />
+                  </LazyLoadComponent>
+                );
+              })
+            : null}
+          {data.posts.map((post, index) => {
+            if (index % 4 === 0 && index !== 0) {
+              return (
+                <React.Fragment key={post.id}>
+                  <LazyLoadComponent key={index}>
+                    <GoogleAd
+                      slot={7242566208}
+                      className={`postPrev`}
+                      format={`fluid`}
+                    />
+                  </LazyLoadComponent>
+                  <LazyLoadComponent key={post.id}>
+                    <PostPrev post={post} handleCache={handleCache} />
+                  </LazyLoadComponent>
+                </React.Fragment>
+              );
+            }
             return (
-              <React.Fragment key={post.id}>
-                <LazyLoadComponent key={index}>
-                  <GoogleAd
-                    slot={7242566208}
-                    className={`postPrev`}
-                    format={`fluid`}
-                  />
-                </LazyLoadComponent>
-                <LazyLoadComponent key={post.id}>
-                  <PostPrev post={post} handleCache={handleCache} />
-                </LazyLoadComponent>
-              </React.Fragment>
+              <LazyLoadComponent key={post.id}>
+                <PostPrev post={post} handleCache={handleCache} />
+              </LazyLoadComponent>
             );
-          }
-          return (
-            <LazyLoadComponent key={post.id}>
-              <PostPrev post={post} handleCache={handleCache} />
-            </LazyLoadComponent>
-          );
-        })
+          })}
+        </>
       )}
       <div ref={postsContainer}></div>
     </div>

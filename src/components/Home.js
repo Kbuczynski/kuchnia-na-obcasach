@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import Slider from "./Slider";
 import InfinitePosts from "./Post/InfinitePosts";
 import HomeAbout from "./HomeAbout";
-import GoogleAd from "./GoogleAd";
 
 const Home = () => {
   useEffect(() => {
@@ -14,13 +13,6 @@ const Home = () => {
       <header className="home__header">
         <Slider />
       </header>
-      <section className="home__banner">
-        <GoogleAd
-          slot={7064696134}
-          className={`home__banner__ad`}
-          format={`auto`}
-        />
-      </section>
       <section className="home__about">
         <HomeAbout />
       </section>
